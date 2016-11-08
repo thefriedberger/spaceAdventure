@@ -114,6 +114,26 @@ public class Game
         northHallway.setExit("east", messHall);
         northHallway.setExit("west", theRoom);
         
+        medBay.setExit("west", southHallway);
+        
+        quartersSouth.setExit("west", southCenterHallway);
+        
+        quartersNorth.setExit("west", centerHallway);
+        
+        lounge.setExit("west", northCenterHallway);
+        
+        messHall.setExit("west", northHallway);
+        
+        security.setExit("east", southHallway);
+        
+        labOne.setExit("east", southCenterHallway);
+        
+        labTwo.setExit("east", centerHallway);
+        
+        labThree.setExit("east", northCenterHallway);
+        
+        theRoom.setExit("east", northHallway);
+        
         //lower level exits
         electric.setExit("north", lifeSupport);
         
