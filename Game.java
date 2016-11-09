@@ -35,7 +35,7 @@ public class Game
     private void createRooms()
     {
         Room bridge, southHallway, southCenterHallway, centerHallway, northCenterHallway, northHallway,
-             security, labOne, labTwo, labThree, theRoom, medBay, quartersSouth, quartersNorth, lounge,
+             security, labOne, labTwo, labThree, bathroom, medBay, quartersSouth, quartersNorth, lounge,
              messHall, electric, lifeSupport, engineOne, engineTwo, engineMain, storageOne, storageTwo,
              observation;
         
@@ -60,7 +60,7 @@ public class Game
         labOne = new Room("in the main lab");
         labTwo = new Room("in the bio lab");
         labThree = new Room("in the mech lab");
-        theRoom = new Room(""); //I'm not sure what this room is called yet
+        bathroom = new Room(""); //I'm not sure what this room is called yet
         
         /*
          * these are the east wing rooms
@@ -94,6 +94,7 @@ public class Game
         southHallway.setExit("east", medBay);
         southHallway.setExit("west", security);
         southHallway.setExit("north", southCenterHallway);
+        southHallway.setExit("down", electric);
         
         southCenterHallway.setExit("south", southHallway);
         southCenterHallway.setExit("east", quartersSouth);
@@ -104,6 +105,7 @@ public class Game
         centerHallway.setExit("east", quartersNorth);
         centerHallway.setExit("west", labTwo);
         centerHallway.setExit("north", northCenterHallway);
+        centerHallway.setExit("up", observation);
         
         northCenterHallway.setExit("south",centerHallway);
         northCenterHallway.setExit("east", lounge);
@@ -112,12 +114,15 @@ public class Game
         
         northHallway.setExit("south", northCenterHallway);
         northHallway.setExit("east", messHall);
-        northHallway.setExit("west", theRoom);
+        northHallway.setExit("west", bathroom);
+        northHallway.setExit("down", engineMain);
         
         medBay.setExit("west", southHallway);
         
         quartersSouth.setExit("west", southCenterHallway);
+        quartersSouth.setExit("north", quartersNorth);
         
+        quartersNorth.setExit("south", quartersSouth);
         quartersNorth.setExit("west", centerHallway);
         
         lounge.setExit("west", northCenterHallway);
@@ -132,7 +137,7 @@ public class Game
         
         labThree.setExit("east", northCenterHallway);
         
-        theRoom.setExit("east", northHallway);
+        bathroom.setExit("east", northHallway);
         
         //lower level exits
         electric.setExit("north", lifeSupport);
@@ -205,6 +210,13 @@ public class Game
             case GO:
                 goRoom(command);
                 break;
+                
+            /*case USE:
+              
+            case GET:
+            
+            case LOOK:
+             */  
 
             case QUIT:
                 wantToQuit = quit(command);
