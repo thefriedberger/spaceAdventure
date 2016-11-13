@@ -45,6 +45,14 @@ public class Room
         exits.put(direction, neighbor);
     }
     
+    public String getItem(int i) {
+        if(i<items.size()&& i>=0) {
+            return items.get(i).toString();
+        }else {
+            return "There are no items in this room.";
+        }
+    }
+    
     /**
      * @return The short description of the room
      * (the one that was defined in the constructor).
@@ -68,7 +76,7 @@ public class Room
                 longDescription += item.getItemDescription();
             }
         }
-        return longDescription + getExitString();
+        return longDescription + getItem(0) + "\n" + getExitString();
     }
     
     /**
@@ -99,14 +107,6 @@ public class Room
     
     public void addItem(Item i) {
         items.add(i);
-    }
-    
-    public String getItem(int i) {
-        if(i<items.size()&& i>=0) {
-            return items.get(i).toString();
-        }else {
-            return "There are no items in this room.";
-        }
     }
 }
 

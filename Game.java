@@ -47,7 +47,7 @@ public class Game
              messHall, electric, lifeSupport, engineOne, engineTwo, engineMain, storageOne, storageTwo,
              observation;
         
-        Item keyCard, heavyPipe;
+        Item keyCard, heavyPipe, wireBundle;
         
         // create the rooms
         
@@ -160,16 +160,15 @@ public class Game
         
         
         keyCard = new Item("a keycard that will unlock a door", 0.5);
-        
+        wireBundle = new Item("a small bundle of wires", 1);
         heavyPipe = new Item("a very heavy pipe, good for bashing things", 15);
-        
-        
-        
         
 
         currentRoom = quartersSouth;  // start game outside
+        
         quartersNorth.addItem(keyCard);
         labTwo.addItem(heavyPipe);
+        labTwo.addItem(wireBundle);
         
     }
     
@@ -281,7 +280,6 @@ public class Game
         else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
-            System.out.println(currentRoom.getItem(0));
         }
     }
 
