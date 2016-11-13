@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -19,7 +20,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-        
+    private ArrayList<Item> inventory;
+    
     /**
      * Create the game and initialise its internal map.
      */
@@ -27,21 +29,27 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        inventory = new ArrayList<Item>();
+    }
+    
+    public void createItems() {
+        
+        
     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
+    public void createRooms()
     {
         Room bridge, southHallway, southCenterHallway, centerHallway, northCenterHallway, northHallway,
              security, labOne, labTwo, labThree, bathroom, medBay, quartersSouth, quartersNorth, lounge,
              messHall, electric, lifeSupport, engineOne, engineTwo, engineMain, storageOne, storageTwo,
              observation;
         
-        // create the rooms
+        Item keyCard, heavyPipe;
         
-        //main level rooms
+        // create the rooms
         
         /*
          * these are the central rooms
@@ -83,11 +91,8 @@ public class Game
         storageTwo = new Room("in storage room");
         observation = new Room("in observation room");
         
-        // initialise room exits    
-        /*
-         * I HAVEN'T ADDED ANY UP OR DOWN EXITS YET, I FIGURED WE COULD FIGURE OUT WHERE THOSE GO LATER
-         */
-        //main level exits
+        
+        //main level exits, all exits move south to north
         bridge.setExit("north", southHallway);
         
         southHallway.setExit("south", bridge);
@@ -152,10 +157,22 @@ public class Game
         engineTwo.setExit("north", engineMain);
         
         engineMain.setExit("south", engineTwo);
+        
+        
+        keyCard = new Item("a keycard that will unlock a door", 0.5);
+        
+        heavyPipe = new Item("a very heavy pipe, good for bashing things", 15);
+        
+        
+        
+        
 
         currentRoom = quartersSouth;  // start game outside
+        quartersNorth.addItem(keyCard);
+        labTwo.addItem(heavyPipe);
+        
     }
-
+    
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -264,6 +281,7 @@ public class Game
         else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            System.out.println(currentRoom.getItem(0));
         }
     }
 
