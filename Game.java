@@ -315,6 +315,8 @@ public class Game
             return;
         }
         
+        //comment
+        
         String nextItem = command.getSecondWord();
         
         if(nextItem == null) {
