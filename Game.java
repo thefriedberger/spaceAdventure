@@ -20,7 +20,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private ArrayList<Item> inventory;
+    //private ArrayList<Item> inventory;
+    private Player inventory;
     
     /**
      * Create the game and initialise its internal map.
@@ -29,7 +30,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
-        inventory = new ArrayList<Item>();
+        //inventory = new ArrayList<Item>();
     }
     
     public void createItems() {
@@ -47,49 +48,49 @@ public class Game
              messHall, electric, lifeSupport, engineOne, engineTwo, engineMain, storageOne, storageTwo,
              observation;
         
-        Item keyCard, heavyPipe, wireBundle;
+        Item keyCard, heavyPipe, wireBundle, airFilter, energyCrystal, milk;
         
         // create the rooms
         
         /*
          * these are the central rooms
          */
-        bridge = new Room("in the bridge");
-        southHallway = new Room("in the hallway");
-        southCenterHallway = new Room("in the hallway");
-        centerHallway = new Room("in the hallway");
-        northCenterHallway = new Room("in the hallway");
-        northHallway = new Room("in the hallway");
+        bridge = new Room("in the bridge", "There are a lot of blinking panels screaming errors at you. The massive window is intact, giving you a great view of empty space.");
+        southHallway = new Room("in the hallway", "There isn't much to see here. The walls are made from a dark metal, there's a small potted plant of no significance in the a corner.");
+        southCenterHallway = new Room("in the hallway", "It's a hallway with four doors leading in different directions.");
+        centerHallway = new Room("in the hallway", "This hallway seems like all of the other hallways you've been in.");
+        northCenterHallway = new Room("in the hallway", "There sure are a lot of hallways in this ship.");
+        northHallway = new Room("in the hallway", "This is the northern most hallway, in it you see a tray of spilled food that likely came from the mess hall. It looks gross.");
         
         /*
          * these are the west wing rooms
          */
-        security = new Room("in the security room");
-        labOne = new Room("in the main lab");
-        labTwo = new Room("in the bio lab");
-        labThree = new Room("in the mech lab");
-        bathroom = new Room(""); //I'm not sure what this room is called yet
+        security = new Room("in the security room", "There are a lot of panels and monitors that mean very little to you.");
+        labOne = new Room("in the main lab", "");
+        labTwo = new Room("in the bio lab", "");
+        labThree = new Room("in the mech lab", "");
+        bathroom = new Room("", ""); //I'm not sure what this room is called yet
         
         /*
          * these are the east wing rooms
          */
-        medBay = new Room(" in the med bay");
-        quartersSouth = new Room("in the crew sleeping quarters");
-        quartersNorth = new Room("in the crew sleeping quarters");
-        lounge = new Room("in the crew lounge");
-        messHall = new Room("in the mess hall");
+        medBay = new Room(" in the med bay", "");
+        quartersSouth = new Room("in the crew sleeping quarters", "There are a bunch of bunks, and none of the beds are made. What a bunch of slobs.");
+        quartersNorth = new Room("in the crew sleeping quarters", "");
+        lounge = new Room("in the crew lounge", "");
+        messHall = new Room("in the mess hall", "");
         
         //lower level rooms
-        electric = new Room("in the electrical room");
-        lifeSupport = new Room("in life support");
-        engineOne = new Room("in the engine room");
-        engineTwo = new Room("in the engine room");
-        engineMain = new Room("at the main engine");
+        electric = new Room("in the electrical room", "");
+        lifeSupport = new Room("in life support", "");
+        engineOne = new Room("in the engine room", "");
+        engineTwo = new Room("in the engine room", "");
+        engineMain = new Room("at the main engine", "");
         
         //upper level rooms
-        storageOne = new Room("in storage room");
-        storageTwo = new Room("in storage room");
-        observation = new Room("in observation room");
+        storageOne = new Room("in storage room", "");
+        storageTwo = new Room("in storage room", "");
+        observation = new Room("in observation room", "");
         
         
         //main level exits, all exits move south to north
@@ -162,6 +163,9 @@ public class Game
         keyCard = new Item("a keycard that will unlock a door", 0.5);
         wireBundle = new Item("a small bundle of wires", 1);
         heavyPipe = new Item("a very heavy pipe, good for bashing things", 15);
+        airFilter = new Item("a fresh-ish air filter", 3);
+        energyCrystal = new Item("a strange glowing crystal that remimds you of rock candy", 7.8);
+        milk = new Item("a carton of milk, no telling how old it is", 0.7);
         
 
         currentRoom = quartersSouth;  // start game outside
@@ -169,7 +173,9 @@ public class Game
         quartersNorth.addItem(keyCard);
         labTwo.addItem(heavyPipe);
         labTwo.addItem(wireBundle);
-        
+        storageOne.addItem(airFilter);
+        labOne.addItem(energyCrystal);
+        messHall.addItem(milk);
     }
     
     /**
@@ -227,12 +233,16 @@ public class Game
                 goRoom(command);
                 break;
                 
-            /*case USE:
+            //case USE:
               
             case GET:
+                getItem(command);
+                break;
             
             case LOOK:
-             */  
+                lookRoom(command);
+                break;
+              
 
             case QUIT:
                 wantToQuit = quit(command);
@@ -281,6 +291,15 @@ public class Game
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
+    }
+    
+    private void getItem(Command command) {
+        Item currentItem = command.getSecondWord();
+        inventory.addItem(currentItem);
+    }
+    
+    private void lookRoom (Command command) {
+        System.out.println(currentRoom.getLookDescription());
     }
 
     /** 

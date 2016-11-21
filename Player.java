@@ -13,5 +13,11 @@ public class Player
         inventory = new ArrayList<Item>();
     }
     
-    //public void 
+    public void addItem(Item item) {
+        inventory.add(item);
+    }
+    
+    public void useItem(){
+        
+    }
 }
