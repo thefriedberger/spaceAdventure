@@ -235,9 +235,8 @@ public class Game
                 
             //case USE:
               
-            case GET:
-                getItem(command);
-                break;
+            //case GET:
+                
             
             case LOOK:
                 lookRoom(command);
@@ -291,11 +290,6 @@ public class Game
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
-    }
-    
-    private void getItem(Command command) {
-        Item currentItem = command.getSecondWord();
-        inventory.addItem(currentItem);
     }
     
     private void lookRoom (Command command) {
