@@ -20,7 +20,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private ArrayList<Item> inventory;
+    private Player inventory;
+    
     
     /**
      * Create the game and initialise its internal map.
@@ -28,8 +29,7 @@ public class Game
     public Game() 
     {
         createRooms();
-        parser = new Parser();
-        inventory = new ArrayList<Item>();
+        parser = new Parser();       
     }
     
     public void createItems() {
@@ -164,7 +164,7 @@ public class Game
         heavyPipe = new Item("a very heavy pipe, good for bashing things", 15);
         
 
-        currentRoom = quartersSouth;  // start game outside
+        currentRoom = quartersSouth;  // start game in sleeping quarters
         
         quartersNorth.addItem(keyCard);
         labTwo.addItem(heavyPipe);
@@ -227,12 +227,14 @@ public class Game
                 goRoom(command);
                 break;
                 
-            /*case USE:
+            //case USE:
               
             case GET:
+                get(command);
+                break;
             
-            case LOOK:
-             */  
+            //case LOOK:
+               
 
             case QUIT:
                 wantToQuit = quit(command);
@@ -282,6 +284,49 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
         }
     }
+    
+    /** 
+     * Try to use an item. If there is a use for the item, remove it
+     * from the inventory, otherwise print an error message.
+     */
+    private void use(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to use...
+            System.out.println("Use what?");
+            return;
+        }
+        
+        String usedItem = command.getSecondWord();
+       
+    }
+        
+        
+        
+    /** 
+     * Try to pick up item in room. If there is an item, add it
+     * to the inventory, otherwise print an error message.
+     */
+    private void get(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to get...
+            System.out.println("Get what?");
+            return;
+        }
+        
+        String nextItem = command.getSecondWord();
+        
+        if(nextItem == null) {
+            System.out.println("Which item do you want to get?");
+        }
+        else {
+            inventory.addItem(nextItem);
+            System.out.println( nextItem + " was added to your inventory!");
+        }
+    }
+        
+        
 
     /** 
      * "Quit" was entered. Check the rest of the command to see

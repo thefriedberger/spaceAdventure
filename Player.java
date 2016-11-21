@@ -7,10 +7,14 @@ import java.util.ArrayList;
  */
 public class Player
 {
-    private ArrayList<Item> inventory;
+    private ArrayList<String> inventory;
     
     public Player() {
-        inventory = new ArrayList<Item>();
+        inventory = new ArrayList<String>();
+    }
+    
+    public void addItem(String item) {
+        inventory.add(item);
     }
     
     //public void 
