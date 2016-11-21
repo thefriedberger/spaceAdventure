@@ -80,10 +80,10 @@ public class Room
         String longDescription = "You are " + description + ".\n";
         if(items.size() > 0) {
             for(Item item : items) {
-                longDescription += item.getItemDescription();
+                longDescription += item.toString();
             }
         }
-        return longDescription + getItem(0) + "\n" + getExitString();
+        return longDescription + "\n" + getExitString();
     }
     
     /**
