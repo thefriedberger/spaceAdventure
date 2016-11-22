@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class Room 
 {
     private String description;
+    private String lookDescription;
     private HashMap<String, Room> exits;        // stores exits of this room.
     private ArrayList<Item> items;
 
@@ -28,9 +29,10 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room(String description, String lookDescription) 
     {
         this.description = description;
+        this.lookDescription = lookDescription;
         exits = new HashMap<String, Room>();
         items = new ArrayList<Item>();
     }
@@ -73,10 +75,10 @@ public class Room
         String longDescription = "You are " + description + ".\n";
         if(items.size() > 0) {
             for(Item item : items) {
-                longDescription += item.getItemDescription();
+                longDescription += item.toString();
             }
         }
-        return longDescription + getItem(0) + "\n" + getExitString();
+        return longDescription + "\n" + getExitString();
     }
     
     /**
@@ -107,6 +109,10 @@ public class Room
     
     public void addItem(Item i) {
         items.add(i);
+    }
+    
+    public String getLookDescription() {
+        return lookDescription;
     }
 }
 

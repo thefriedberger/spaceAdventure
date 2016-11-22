@@ -14,7 +14,7 @@ public class Item
         this.weight = weight;
     }
     
-    public String getItemDescription() {
+    public String toString() {
         return "There is " + description + " and it weighs " + weight + " lbs" + ".\n";
     }
 }
