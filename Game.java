@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -19,29 +20,36 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-        
+    private Player inventory;
+    
+    
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
         createRooms();
-        parser = new Parser();
+        parser = new Parser();       
+    }
+    
+    public void createItems() {
+        
+        
     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
+    public void createRooms()
     {
         Room bridge, southHallway, southCenterHallway, centerHallway, northCenterHallway, northHallway,
              security, labOne, labTwo, labThree, bathroom, medBay, quartersSouth, quartersNorth, lounge,
              messHall, electric, lifeSupport, engineOne, engineTwo, engineMain, storageOne, storageTwo,
              observation;
         
-        // create the rooms
+        Item keyCard, heavyPipe, wireBundle;
         
-        //main level rooms
+        // create the rooms
         
         /*
          * these are the central rooms
@@ -83,11 +91,8 @@ public class Game
         storageTwo = new Room("in storage room");
         observation = new Room("in observation room");
         
-        // initialise room exits    
-        /*
-         * I HAVEN'T ADDED ANY UP OR DOWN EXITS YET, I FIGURED WE COULD FIGURE OUT WHERE THOSE GO LATER
-         */
-        //main level exits
+        
+        //main level exits, all exits move south to north
         bridge.setExit("north", southHallway);
         
         southHallway.setExit("south", bridge);
@@ -152,10 +157,21 @@ public class Game
         engineTwo.setExit("north", engineMain);
         
         engineMain.setExit("south", engineTwo);
+        
+        
+        keyCard = new Item("a keycard that will unlock a door", 0.5);
+        wireBundle = new Item("a small bundle of wires", 1);
+        heavyPipe = new Item("a very heavy pipe, good for bashing things", 15);
+        
 
-        currentRoom = quartersSouth;  // start game outside
+        currentRoom = quartersSouth;  // start game in sleeping quarters
+        
+        quartersNorth.addItem(keyCard);
+        labTwo.addItem(heavyPipe);
+        labTwo.addItem(wireBundle);
+        
     }
-
+    
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -211,12 +227,14 @@ public class Game
                 goRoom(command);
                 break;
                 
-            /*case USE:
+            //case USE:
               
             case GET:
+                get(command);
+                break;
             
-            case LOOK:
-             */  
+            //case LOOK:
+               
 
             case QUIT:
                 wantToQuit = quit(command);
@@ -266,6 +284,51 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
         }
     }
+    
+    /** 
+     * Try to use an item. If there is a use for the item, remove it
+     * from the inventory, otherwise print an error message.
+     */
+    private void use(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to use...
+            System.out.println("Use what?");
+            return;
+        }
+        
+        String usedItem = command.getSecondWord();
+       
+    }
+        
+        
+        
+    /** 
+     * Try to pick up item in room. If there is an item, add it
+     * to the inventory, otherwise print an error message.
+     */
+    private void get(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to get...
+            System.out.println("Get what?");
+            return;
+        }
+        
+        //comment
+        
+        String nextItem = command.getSecondWord();
+        
+        if(nextItem == null) {
+            System.out.println("Which item do you want to get?");
+        }
+        else {
+            inventory.addItem(nextItem);
+            System.out.println( nextItem + " was added to your inventory!");
+        }
+    }
+        
+        
 
     /** 
      * "Quit" was entered. Check the rest of the command to see
