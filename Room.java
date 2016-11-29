@@ -21,8 +21,8 @@ public class Room
     private String description;
     private String lookDescription;
     private HashMap<String, Room> exits;        // stores exits of this room.
-    private ArrayList<Item> items;
-
+    private Inventory items;
+    
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -34,7 +34,7 @@ public class Room
         this.description = description;
         this.lookDescription = lookDescription;
         exits = new HashMap<String, Room>();
-        items = new ArrayList<Item>();
+        items = new Inventory();
     }
 
     /**
@@ -47,12 +47,25 @@ public class Room
         exits.put(direction, neighbor);
     }
     
-    public String getItem(int i) {
-        if(i<items.size()&& i>=0) {
-            return items.get(i).toString();
-        }else {
-            return "There are no items in this room.";
-        }
+    /**
+     * Adds items to a room
+     */
+    public void addItem(Item item) {
+        items.addItem(item);
+    }    
+    
+    /**
+     * Gets the index of an item
+     */
+    public Item getItem(String searchName) {
+        return items.getItem(searchName);
+    }
+    
+    /**
+     * Removes items from a room
+     */    
+    public void removeItem(int i) {
+        items.removeItem(i);
     }
     
     /**
@@ -67,18 +80,15 @@ public class Room
     /**
      * Return a description of the room in the form:
      *     You are in the kitchen.
+     *     The item(s) that are in the room.
      *     Exits: north west
      * @return A long description of this room
      */
     public String getLongDescription()
     {
         String longDescription = "You are " + description + ".\n";
-        if(items.size() > 0) {
-            for(Item item : items) {
-                longDescription += item.toString();
-            }
-        }
-        return longDescription + "\n" + getExitString();
+        longDescription += items.getInfo().toString();
+        return longDescription + getExitString();
     }
     
     /**
@@ -107,10 +117,9 @@ public class Room
         return exits.get(direction);
     }
     
-    public void addItem(Item i) {
-        items.add(i);
-    }
-    
+    /**
+     * Returns a longer description that describes room in more detail
+     */
     public String getLookDescription() {
         return lookDescription;
     }
