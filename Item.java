@@ -7,14 +7,27 @@ import java.util.HashMap;
  */
 public class Item
 {
+    private String itemName;
     private String description;
     private double weight;
-    public Item(String description, double weight) {
+    
+    public Item(String itemName, String description, double weight) {
+        this.itemName = itemName;
         this.description = description;
         this.weight = weight;
     }
     
-    public String toString() {
-        return "There is " + description + " and it weighs " + weight + " lbs" + ".\n";
+    /**
+     * Returns name of the item
+     */
+    public String getName(String itemName) {
+        return itemName;
+    }
+    
+    /**
+     * Returns a string that has an items description and weight
+     */
+    public String getItemDescription() {
+        return "There is " + description + ".\n";
     }
 }

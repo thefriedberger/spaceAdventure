@@ -7,14 +7,28 @@ import java.util.ArrayList;
  */
 public class Player
 {
-    private ArrayList<String> inventory;
+    private Inventory items;
     
     public Player() {
-        inventory = new ArrayList<String>();
+        items = new Inventory();
     }
     
-    public void addItem(String item) {
-        inventory.add(item);
+    /**
+     * Adds an item to the player's inventory
+     */
+    public void addItem(String itemName, Item item) {
+        items.addItem(itemName, item);
+    }
+    
+    public Item getItem(String searchName) {
+        return items.getItem(searchName);        
+    }
+    
+    /**
+     * Removes an item from the player's inventory
+     */
+    public void removeItem(String i) {
+        items.removeItem(i);
     }
     
     //public void 

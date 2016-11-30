@@ -29,12 +29,8 @@ public class Game
     public Game() 
     {
         createRooms();
-        parser = new Parser();       
-    }
-    
-    public void createItems() {
-        
-        
+        parser = new Parser();
+        inventory = new Player();
     }
 
     /**
@@ -65,17 +61,17 @@ public class Game
          * these are the west wing rooms
          */
         security = new Room("in the security room", "There are a lot of panels and monitors that mean very little to you.");
-        labOne = new Room("in the main lab", "");
-        labTwo = new Room("in the bio lab", "");
-        labThree = new Room("in the mech lab", "");
-        bathroom = new Room("", ""); //I'm not sure what this room is called yet
+        labOne = new Room("in the main lab", "This is the main lab. There's a lot of lab equipment, a decent amount of it looks broken.");
+        labTwo = new Room("in the bio lab", "The bio lab is full of interesting plants and cultures of who-knows-what. There's also a fishtank in the corner.");
+        labThree = new Room("in the mech lab", "There are bits of random machinery, what looks like the beginnings of a new coffee machine, or maybe a robot, and a white lab coat.");
+        bathroom = new Room("in the 'facilities'", "The bathroom is in peak condition. The floors sparkle bright, the flourescent lights flicker gen the stall calls your name"); //I'm not sure what this room is called yet
         
         /*
          * these are the east wing rooms
          */
         medBay = new Room(" in the med bay", "");
         quartersSouth = new Room("in the crew sleeping quarters", "There are a bunch of bunks, and none of the beds are made. What a bunch of slobs.");
-        quartersNorth = new Room("in the crew sleeping quarters", "");
+        quartersNorth = new Room("in the crew sleeping quarters", "Bunks line the east side of the room, all of the beds are well made and clean. No slobs here.");
         lounge = new Room("in the crew lounge", "");
         messHall = new Room("in the mess hall", "");
         
@@ -158,17 +154,18 @@ public class Game
         
         engineMain.setExit("south", engineTwo);
         
-        
-        keyCard = new Item("a keycard that will unlock a door", 0.5);
-        wireBundle = new Item("a small bundle of wires", 1);
-        heavyPipe = new Item("a very heavy pipe, good for bashing things", 15);
+        //Creates new items with description and weight
+        keyCard = new Item("keycard", "a keycard that will unlock a door", 0.5);
+        wireBundle = new Item("wires", "a small bundle of wires", 1);
+        heavyPipe = new Item("pipe", "a very heavy pipe, good for bashing things", 15);
         
 
         currentRoom = quartersSouth;  // start game in sleeping quarters
         
-        quartersNorth.addItem(keyCard);
-        labTwo.addItem(heavyPipe);
-        labTwo.addItem(wireBundle);
+        //adds items to a specified room
+        quartersNorth.addItem("keycard", keyCard);
+        labTwo.addItem("pipe", heavyPipe);
+        labTwo.addItem("wires", wireBundle);
         
     }
     
@@ -195,9 +192,8 @@ public class Game
      */
     private void printWelcome()
     {
-        System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("This is a Space Adventure");
+        System.out.println("It is indeed an adventure in space!");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
@@ -227,7 +223,9 @@ public class Game
                 goRoom(command);
                 break;
                 
-            //case USE:
+            case USE:
+                use(command);
+                break;
               
             case GET:
                 get(command);
@@ -253,8 +251,8 @@ public class Game
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("You are on a space ship. Red lights are flashing");
+        System.out.println("An alarm is sounding.");
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
@@ -298,12 +296,13 @@ public class Game
             return;
         }
         
-        String usedItem = command.getSecondWord();
-       
+        String itemName = command.getSecondWord();
+        Item item = inventory.getItem(itemName);
+        
+        inventory.removeItem(itemName);
+        System.out.println("You used " + itemName);
     }
-        
-        
-        
+    
     /** 
      * Try to pick up item in room. If there is an item, add it
      * to the inventory, otherwise print an error message.
@@ -311,22 +310,18 @@ public class Game
     private void get(Command command) 
     {
         if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know what to get...
-            System.out.println("Get what?");
+            // if there is no second word, we don't know where to go...
+            System.out.println("What item?");
             return;
         }
+        String itemName = command.getSecondWord();
         
-        //comment
+        Item item = currentRoom.getItem(itemName);
         
-        String nextItem = command.getSecondWord();
+        currentRoom.removeItem(itemName);
+        inventory.addItem(itemName, item);
+        System.out.println("You added " + itemName + " to your inventory.");
         
-        if(nextItem == null) {
-            System.out.println("Which item do you want to get?");
-        }
-        else {
-            inventory.addItem(nextItem);
-            System.out.println( nextItem + " was added to your inventory!");
-        }
     }
     
     private void lookRoom (Command command) {
