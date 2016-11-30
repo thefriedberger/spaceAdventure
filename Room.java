@@ -87,7 +87,9 @@ public class Room
     public String getLongDescription()
     {
         String longDescription = "You are " + description + ".\n";
-        longDescription += items.getInfo().toString();
+        if(items.size() > 0) {
+            longDescription += "There is a(n) " + items.getInfo().toString() + ".\n";
+        }
         return longDescription + getExitString();
     }
     

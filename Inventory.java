@@ -41,9 +41,9 @@ public class Inventory
         String description = "";
         Set<String> items = inv.keySet();
         for(String item : items) {
-            description +=  item + ".\n";
+            description +=  item;
         }
-        return "There is a(n) " + description;
+        return description;
     }
     
     /**
