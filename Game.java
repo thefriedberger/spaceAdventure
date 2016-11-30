@@ -233,7 +233,11 @@ public class Game
             
             case LOOK:
                 lookRoom(command);
-                break;               
+                break;     
+            
+            case INVENTORY:
+                showInventory(command);
+                break;
 
             case QUIT:
                 wantToQuit = quit(command);
@@ -282,6 +286,10 @@ public class Game
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
+    }
+    
+    public void showInventory(Command command) {
+        System.out.println(inventory.getContents());
     }
     
     /** 

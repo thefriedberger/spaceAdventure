@@ -31,5 +31,8 @@ public class Player
         items.removeItem(i);
     }
     
-    //public void 
+    public String getContents() {
+        String itemName = items.getInfo();
+        return "Inventory: " + itemName.toString();
+    }
 }

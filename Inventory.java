@@ -38,12 +38,12 @@ public class Inventory
     }
     
     public String getInfo() {
-        String description = "There is a(n) ";
+        String description = "";
         Set<String> items = inv.keySet();
         for(String item : items) {
             description +=  item + ".\n";
         }
-        return description;
+        return "There is a(n) " + description;
     }
     
     /**
