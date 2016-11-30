@@ -50,8 +50,8 @@ public class Room
     /**
      * Adds items to a room
      */
-    public void addItem(Item item) {
-        items.addItem(item);
+    public void addItem(String itemName, Item item) {
+        items.addItem(itemName, item);
     }    
     
     /**
@@ -64,7 +64,7 @@ public class Room
     /**
      * Removes items from a room
      */    
-    public void removeItem(int i) {
+    public void removeItem(String i) {
         items.removeItem(i);
     }
     

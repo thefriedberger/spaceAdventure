@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 /**
  * Write a description of class Inventory here.
  * 
@@ -7,50 +8,40 @@ import java.util.ArrayList;
  */
 public class Inventory
 {
-    private ArrayList<Item> inv;
+    private HashMap<String, Item> inv;
     
     public Inventory() {
-        inv = new ArrayList<Item>();
+        inv = new HashMap<String, Item>();
     }
     
     /**
      * Adds items to a room
      */
-    public void addItem(Item item) {
-        inv.add(item);
+    public void addItem(String itemName, Item item) {
+        inv.put(itemName, item);
     }
     
     public int size() {
         return inv.size();
     }
     
-    
-    
     /**
      * Gets the index of an item
      */
     public Item getItem(String searchName) {
-        int foundIndex = -1;
-        for(int index = 0; index < inv.size(); index++) {
-            if(inv.get(index).getName(inv.toString()).equals(searchName)) {
-                foundIndex = index;
-            }
-            break;
+        boolean foundItem = false;
+        Item item = null;
+        for(int i = 0; i < inv.size(); i++) {
+            item = inv.get(searchName);
         }
-        if(foundIndex==-1){
-            return null;
-        }
-        else {
-            return inv.get(foundIndex);
-        }
+        return item;        
     }
     
     public String getInfo() {
-        String description = "";
-        if(inv.size() > 0) {
-            for(Item item : inv) {
-                description = item.getItemDescription().toString();
-            }
+        String description = "There is a(n) ";
+        Set<String> items = inv.keySet();
+        for(String item : items) {
+            description +=  item + ".\n";
         }
         return description;
     }
@@ -58,7 +49,7 @@ public class Inventory
     /**
      * Removes items from a room
      */    
-    public void removeItem(int i) {
+    public void removeItem(String i) {
         inv.remove(i);
     }
 }

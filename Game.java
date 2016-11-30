@@ -163,9 +163,9 @@ public class Game
         currentRoom = quartersSouth;  // start game in sleeping quarters
         
         //adds items to a specified room
-        quartersNorth.addItem(keyCard);
-        labTwo.addItem(heavyPipe);
-        labTwo.addItem(wireBundle);
+        quartersNorth.addItem("keycard", keyCard);
+        labTwo.addItem("pipe", heavyPipe);
+        labTwo.addItem("wires", wireBundle);
         
     }
     
@@ -299,7 +299,7 @@ public class Game
         String itemName = command.getSecondWord();
         Item item = inventory.getItem(itemName);
         
-        inventory.removeItem(item);
+        inventory.removeItem(itemName);
         System.out.println("You used " + itemName);
     }
     
@@ -318,8 +318,8 @@ public class Game
         
         Item item = currentRoom.getItem(itemName);
         
-        currentRoom.removeItem(item);
-        inventory.addItem(item);
+        currentRoom.removeItem(itemName);
+        inventory.addItem(itemName, item);
         System.out.println("You added " + itemName + " to your inventory.");
         
     }

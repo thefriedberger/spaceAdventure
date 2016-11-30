@@ -28,6 +28,6 @@ public class Item
      * Returns a string that has an items description and weight
      */
     public String getItemDescription() {
-        return "There is " + description + " and it weighs " + weight + " lbs" + ".\n";
+        return "There is " + description + ".\n";
     }
 }

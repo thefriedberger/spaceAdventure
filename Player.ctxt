@@ -1,12 +1,12 @@
 #BlueJ class context
 comment0.params=
 comment0.target=Player()
-comment1.params=item
-comment1.target=void\ addItem(Item)
+comment1.params=itemName\ item
+comment1.target=void\ addItem(java.lang.String,\ Item)
 comment1.text=\r\n\ Adds\ an\ item\ to\ the\ player's\ inventory\r\n
 comment2.params=searchName
 comment2.target=Item\ getItem(java.lang.String)
 comment3.params=i
-comment3.target=void\ removeItem(int)
+comment3.target=void\ removeItem(java.lang.String)
 comment3.text=\r\n\ Removes\ an\ item\ from\ the\ player's\ inventory\r\n
 numComments=4

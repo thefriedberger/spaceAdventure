@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.params=
 comment0.target=Inventory()
-comment1.params=item
-comment1.target=void\ addItem(Item)
+comment1.params=itemName\ item
+comment1.target=void\ addItem(java.lang.String,\ Item)
 comment1.text=\r\n\ Adds\ items\ to\ a\ room\r\n
 comment2.params=
 comment2.target=int\ size()
@@ -12,6 +12,6 @@ comment3.text=\r\n\ Gets\ the\ index\ of\ an\ item\r\n
 comment4.params=
 comment4.target=java.lang.String\ getInfo()
 comment5.params=i
-comment5.target=void\ removeItem(int)
+comment5.target=void\ removeItem(java.lang.String)
 comment5.text=\r\n\ Removes\ items\ from\ a\ room\r\n
 numComments=6
