@@ -36,7 +36,7 @@ public class Game
     /**
      * Create all the rooms and link their exits together.
      */
-    public void createRooms()
+    private void createRooms()
     {
         Room bridge, southHallway, southCenterHallway, centerHallway, northCenterHallway, northHallway,
              security, labOne, labTwo, labThree, bathroom, medBay, quartersSouth, quartersNorth, lounge,
@@ -288,8 +288,13 @@ public class Game
         }
     }
     
-    public void showInventory(Command command) {
-        System.out.println(inventory.getContents());
+    private void showInventory(Command command) {
+        if (inventory == null) {
+            System.out.println("There's nothing here.");
+        }
+        else {
+            System.out.println(inventory.getContents());
+       }
     }
     
     /** 
@@ -307,8 +312,13 @@ public class Game
         String itemName = command.getSecondWord();
         Item item = inventory.getItem(itemName);
         
-        inventory.removeItem(itemName);
-        System.out.println("You used " + itemName);
+        if (inventory == null){
+            System.out.println("You can't use that.");
+        }
+        else {
+            inventory.removeItem(itemName);
+            System.out.println("You used " + itemName);
+        }
     }
     
     /** 
@@ -326,10 +336,14 @@ public class Game
         
         Item item = currentRoom.getItem(itemName);
         
-        currentRoom.removeItem(itemName);
-        inventory.addItem(itemName, item);
-        System.out.println("You added " + itemName + " to your inventory.");
-        
+        if(item == null) {
+            System.out.println("There is no item.");
+        }
+        else {
+            currentRoom.removeItem(itemName);
+            inventory.addItem(itemName, item);
+            System.out.println("You added " + itemName + " to your inventory.");
+        }        
     }
     
     private void lookRoom (Command command) {
