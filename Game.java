@@ -43,7 +43,7 @@ public class Game
              messHall, electric, lifeSupport, engineOne, engineTwo, engineMain, storageOne, storageTwo,
              observation;
         
-        Item keyCard, heavyPipe, wireBundle;
+        Item keyCard, heavyPipe, wireBundle, milk, energyCrystal;
         
         // create the rooms
         
@@ -154,10 +154,20 @@ public class Game
         
         engineMain.setExit("south", engineTwo);
         
+        //upper level exits
+        observation.setExit("south", storageOne);
+        observation.setExit("north", storageTwo);
+        
+        storageOne.setExit("north", observation);
+        
+        storageTwo.setExit("south", observation);
+        
         //Creates new items with description and weight
         keyCard = new Item("keycard", "a keycard that will unlock a door", 0.5);
         wireBundle = new Item("wires", "a small bundle of wires", 1);
         heavyPipe = new Item("pipe", "a very heavy pipe, good for bashing things", 15);
+        milk = new Item("milk", "some milk that might be bad", .4);
+        energyCrystal = new Item("crystal", "an energy crystal that powers the engine", 5);
         
 
         currentRoom = quartersSouth;  // start game in sleeping quarters
@@ -166,6 +176,8 @@ public class Game
         quartersNorth.addItem("keycard", keyCard);
         labTwo.addItem("pipe", heavyPipe);
         labTwo.addItem("wires", wireBundle);
+        messHall.addItem("milk", milk);
+        storageOne.addItem("crystal", energyCrystal);
         
     }
     
@@ -312,7 +324,7 @@ public class Game
         String itemName = command.getSecondWord();
         Item item = inventory.getItem(itemName);
         
-        if (inventory == null){
+        if (item == null){
             System.out.println("You can't use that.");
         }
         else {

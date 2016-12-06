@@ -41,7 +41,7 @@ public class Inventory
         String description = "";
         Set<String> items = inv.keySet();
         for(String item : items) {
-            description +=  item;
+            description += " " + item;
         }
         return description;
     }

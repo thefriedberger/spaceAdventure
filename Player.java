@@ -34,8 +34,8 @@ public class Player
     public String getContents() {
         String itemName = items.getInfo();
         if(items.size() < 1) {
-            itemName = "There are no items.";
+            itemName = " There are no items.";
         }
-        return "Inventory: " + itemName.toString();
+        return "Inventory:" + itemName.toString();
     }
 }
