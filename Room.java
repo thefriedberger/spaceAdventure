@@ -1,16 +1,9 @@
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
-
+import java.util.ArrayList;
 /**
- * Class Room - a room in an adventure game.
- *
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
- *
- * A "Room" represents one location in the scenery of the game.  It is 
- * connected to other rooms via exits.  For each existing exit, the room 
- * stores a reference to the neighboring room.
+ * Class Room - Creates the room descriptions, exits and items in the rooms
  * 
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
@@ -19,18 +12,22 @@ import java.util.Iterator;
 public class Room 
 {
     private String description;
+    private String lookDescription;
     private HashMap<String, Room> exits;        // stores exits of this room.
-
+    private Inventory items;
+    
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room(String description, String lookDescription) 
     {
         this.description = description;
-        exits = new HashMap<>();
+        this.lookDescription = lookDescription;
+        exits = new HashMap<String, Room>();
+        items = new Inventory();
     }
 
     /**
@@ -42,7 +39,28 @@ public class Room
     {
         exits.put(direction, neighbor);
     }
-
+    
+    /**
+     * Adds items to a room
+     */
+    public void addItem(String itemName, Item item) {
+        items.addItem(itemName, item);
+    }    
+    
+    /**
+     * Gets the index of an item
+     */
+    public Item getItem(String searchName) {
+        return items.getItem(searchName);
+    }
+    
+    /**
+     * Removes items from a room
+     */    
+    public void removeItem(String i) {
+        items.removeItem(i);
+    }
+    
     /**
      * @return The short description of the room
      * (the one that was defined in the constructor).
@@ -55,14 +73,19 @@ public class Room
     /**
      * Return a description of the room in the form:
      *     You are in the kitchen.
+     *     The item(s) that are in the room.
      *     Exits: north west
      * @return A long description of this room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        String longDescription = "You are " + description + ".\n";
+        if(items.size() > 0) {
+            longDescription += "There is a(n)" + items.getInfo().toString() + ".\n";
+        }
+        return longDescription + getExitString();
     }
-
+    
     /**
      * Return a string describing the room's exits, for example
      * "Exits: north west".
@@ -87,6 +110,13 @@ public class Room
     public Room getExit(String direction) 
     {
         return exits.get(direction);
+    }
+    
+    /**
+     * Returns a longer description that describes room in more detail
+     */
+    public String getLookDescription() {
+        return lookDescription;
     }
 }
 
