@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 /**
- * Write a description of class Inventory here.
+ * class Inventory
+ * Keeps track of the items added and removed in the players inventory
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Tyler Friedberg and Ben Fasinski
  */
 public class Player
 {
@@ -30,7 +30,9 @@ public class Player
     public void removeItem(String i) {
         items.removeItem(i);
     }
-    
+    /**
+     * displays current items of a players inventory if any.
+     */
     public String getContents() {
         String itemName = items.getInfo();
         if(items.size() < 1) {

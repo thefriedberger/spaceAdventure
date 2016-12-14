@@ -1,9 +1,9 @@
 import java.util.HashMap;
 /**
- * Write a description of class Items here.
+ * class Items
+ * creates and returns information about items
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Tyler Friedberg and Ben Fasinski
  */
 public class Item
 {

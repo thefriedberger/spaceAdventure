@@ -1,10 +1,10 @@
 import java.util.HashMap;
 import java.util.Set;
 /**
- * Write a description of class Inventory here.
+ * class Inventory
+ * Creates the inventory and adds and removes items from rooms
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Tyler Friedberg and Ben Fasinski
  */
 public class Inventory
 {
@@ -36,7 +36,9 @@ public class Inventory
         }
         return item;        
     }
-    
+    /**
+     * gets the item description
+     */
     public String getInfo() {
         String description = "";
         Set<String> items = inv.keySet();
